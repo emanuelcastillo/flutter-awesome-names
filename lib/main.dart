@@ -43,18 +43,21 @@ class MyHomePage extends StatelessWidget {
     var pair = appState.current;
     
     return Scaffold(
-      body: Column(
-        children: [
-         Text('A random AWESOME idea:'),
-          BigCard(pair: pair),
-          // ↓ Add this se agrego el boton.
-          ElevatedButton(
-            onPressed: () {
-              appState.getNext();
-            },
-            child: Text('Next'),
-          ),
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+           Text('A random AWESOME idea:'),
+            BigCard(pair: pair),
+            // ↓ Add this se agrego el boton.
+            ElevatedButton(
+              onPressed: () {
+                appState.getNext();
+              },
+              child: Text('Next'),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -70,10 +73,15 @@ class BigCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var tema = Theme.of(context);
+    var estilo = tema.textTheme.displayMedium!.copyWith(
+      color: tema.colorScheme .onPrimary
+    );
     return Card(
+      color: tema.colorScheme.primary,
       child: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: Text(pair.asLowerCase),
+        child: Text(pair.asLowerCase, style: estilo, semanticsLabel: pair.asPascalCase,),
       ),
     );
   }
